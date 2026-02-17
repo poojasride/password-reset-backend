@@ -15,7 +15,7 @@ async function sendEmail(token, email) {
     // Email configuration
     const mailOptions = {
       from: "pooja.sri.06.2001@gmail.com",
-      to: "pooja.sri.06.2001@gmail.com", // send reset token to user's email
+      to: email, // send reset token to user's email
       subject: "Password Reset Request",
       text: `Password Reset Request
              We received a request to reset your password.
@@ -28,7 +28,7 @@ async function sendEmail(token, email) {
              If you did not request this, please ignore this email. 
 
              Regards,  
-             MovieHub Support Team`,
+             E-mart Support Team`,
     };
 
     // Send email (await is important, otherwise response will not be returned)
