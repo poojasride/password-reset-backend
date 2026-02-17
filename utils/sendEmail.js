@@ -1,0 +1,46 @@
+import nodeMailer from "nodemailer";
+
+async function sendEmail(token, email) {
+  try {
+    // Create transporter using Gmail service
+    // IMPORTANT: Use Gmail App Password, not your normal Gmail password
+    const transporter = nodeMailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "pooja.sri.06.2001@gmail.com",
+        pass: "lmau wxim npow ahqk",
+      },
+    });
+
+    // Email configuration
+    const mailOptions = {
+      from: "pooja.sri.06.2001@gmail.com",
+      to: "pooja.sri.06.2001@gmail.com", // send reset token to user's email
+      subject: "Password Reset Request",
+      text: `Password Reset Request
+             We received a request to reset your password.
+
+             Click the link below to reset your password:
+            http://localhost:5173/reset-password/${token}
+
+             This link will expire in 1 hour.
+
+             If you did not request this, please ignore this email. 
+
+             Regards,  
+             MovieHub Support Team`,
+    };
+
+    // Send email (await is important, otherwise response will not be returned)
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log("Email sent:", info.response);
+
+    return info; // return response to controller
+  } catch (error) {
+    console.log("Email error:", error.message);
+    throw error;
+  }
+}
+
+export default sendEmail;
