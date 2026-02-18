@@ -23,7 +23,7 @@ async function sendEmail(token, email) {
              Click the link below to reset your password:
             https://e-mart-web.netlify.app/reset-password/${token}
 
-             This link will expire in 1 hour.
+             This link will expire in 1 hour. So quickly reset your password using this link.
 
              If you did not request this, please ignore this email. 
 
