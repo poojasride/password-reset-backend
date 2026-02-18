@@ -118,7 +118,7 @@ async function resetPassword(req, res) {
     if (!user)
       return res.status(400).json({
         success: false,
-        message: "Invalid or expired token",
+        error: "Invalid or expired token",
       });
 
     const salt = await bcrypt.genSalt(10);
@@ -139,7 +139,7 @@ async function resetPassword(req, res) {
 
     res.status(500).json({
       success: false,
-      message: "Server error",
+      error: "Server error",
     });
   }
 }
