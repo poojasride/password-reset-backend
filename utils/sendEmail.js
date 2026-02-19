@@ -16,7 +16,6 @@ async function sendEmail(token, email) {
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
-      family: 4, // Fix for Render ENETUNREACH error
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
