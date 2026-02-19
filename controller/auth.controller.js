@@ -63,16 +63,23 @@ async function forgotPassword(req, res) {
     // Send reset token to user's email
     const emailResponse = await sendEmail(token, email);
 
-    if (emailResponse) {
-      return res.status(200).json({
-        message: "Password reset token sent to your email",
+    if (!emailResponse.success) {
+      return res.status(500).json({
+        success: false,
+        message: result.message,
+        error: result.error,
       });
     }
-  } catch (error) {
-    console.log("Forgot password error:", error.message);
 
+    return emailResponse.status(200).json({
+      success: true,
+      message: "Password reset email sent successfully",
+    });
+  } catch (error) {
     return res.status(500).json({
-      error: "Error processing forgot password request",
+      success: false,
+      message: "Server error",
+      error: error.message,
     });
   }
 }
