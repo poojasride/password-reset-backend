@@ -71,7 +71,7 @@ async function forgotPassword(req, res) {
       });
     }
 
-    return emailResponse.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Password reset email sent successfully",
     });
