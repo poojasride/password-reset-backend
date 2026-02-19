@@ -66,8 +66,8 @@ async function forgotPassword(req, res) {
     if (!emailResponse.success) {
       return res.status(500).json({
         success: false,
-        message: result.message,
-        error: result.error,
+        message: emailResponse.message,
+        error: emailResponse.error,
       });
     }
 
