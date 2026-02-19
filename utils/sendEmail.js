@@ -14,8 +14,8 @@ async function sendEmail(token, email) {
     // Create transporter
     const transporter = nodeMailer.createTransport({
       host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
+      port: 465,
+      secure: true,
       family: 4, // Fix for Render ENETUNREACH error
       auth: {
         user: process.env.EMAIL_USER,
