@@ -13,10 +13,13 @@ async function sendEmail(token, email) {
 
     // Create transporter
     const transporter = nodeMailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      family: 4, // Fix for Render ENETUNREACH error
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS, // App password
+        pass: process.env.EMAIL_PASS,
       },
     });
 
@@ -53,7 +56,6 @@ E-mart Support Team`,
       message: "Email sent successfully",
       response: info.response,
     };
-
   } catch (error) {
     console.error("❌ Email sending failed:", error.message);
 
