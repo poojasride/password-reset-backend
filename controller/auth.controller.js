@@ -1,6 +1,7 @@
 import User from "../models/user.schema.js";
 import bcrypt from "bcrypt";
 import sendEmail from "../utils/sendEmail.js";
+import crypto from "crypto";
 
 
 async function Login(req, res) {
