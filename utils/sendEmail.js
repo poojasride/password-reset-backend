@@ -1,4 +1,4 @@
-import nodeMailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 
 async function sendEmail(token, email) {
   try {
@@ -9,28 +9,15 @@ async function sendEmail(token, email) {
 
     if (!email) {
       throw new Error("Recipient email is missing");
-    }
+    } 
 
-    // Create transporter
-    const transporter = nodeMailer.createTransport({
-      host: "smtp.sendgrid.net",
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    // Set SendGrid API Key
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    
-
-    // Verify transporter connection (important)
-    await transporter.verify();
-
-    // Email options
-    const mailOptions = {
-      from: `"E-mart Support" <${process.env.EMAIL_USER}>`,
+    // Email message
+    const msg = {
       to: email,
+      from: process.env.EMAIL_USER, // Verified sender email
       subject: "Password Reset Request",
       text: `Password Reset Request
 
@@ -43,22 +30,24 @@ This link will expire in 1 hour.
 
 If you did not request this, please ignore this email.
 
-Regards,  
+Regards,
 E-mart Support Team`,
     };
 
     // Send email
-    const info = await transporter.sendMail(mailOptions);
+    const response = await sgMail.send(msg);
 
-    console.log(" Email sent successfully:", info.response);
+    console.log(" Email sent successfully");
 
     return {
       success: true,
       message: "Email sent successfully",
-      response: info.response,
+      response,
     };
+
   } catch (error) {
-    console.error("❌ Email sending failed:", error.message);
+
+    console.error(" Email sending failed:", error.message);
 
     return {
       success: false,
