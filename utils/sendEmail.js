@@ -13,14 +13,16 @@ async function sendEmail(token, email) {
 
     // Create transporter
     const transporter = nodeMailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      host: "smtp.sendgrid.net",
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
+
+    
 
     // Verify transporter connection (important)
     await transporter.verify();
